@@ -2,16 +2,19 @@
 
 /**
  * Module dependencies.
+ * 网站的入口文件
  */
 
-var app = require('../app');
-var debug = require('debug')('myblog:server');
+var app = require('../app');    //加载网站的主文件 就是express对象
+//debug 控制后台输出的调试信息
+var debug = require('debug');
+debug('myblog:server');  //调用这个函数
 var http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
-
+//设置服务器端口号   第一个指 从环境变量当中读取端口号 如果没有则设为3000
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 

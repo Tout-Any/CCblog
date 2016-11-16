@@ -1,0 +1,22 @@
+{
+  "name": "myblog",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Tout-Any <1123938449@qq.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/Tout-Any/CCblog",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "./public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
