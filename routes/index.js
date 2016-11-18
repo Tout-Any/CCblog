@@ -7,7 +7,7 @@ var model=require('../db/model');
 router.get('/', function(req, res, next) {
   model.Article.find({}).populate('user').exec(function (err,articles) {
     console.log(articles);
-    res.render('index', { title: '我的文章',articles:articles });
+    res.render('index', { title: 'CCblog',tit:'我的文章',articles:articles });
   });
 
 });

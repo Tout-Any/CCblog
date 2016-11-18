@@ -35,7 +35,8 @@ router.post('/post',auth.checkLogin,function(req, res, next) {
 });
 //查看文章的路由
 router.get('/view', auth.checkLogin,function(req, res, next) {
-    res.render('article/view.html',{title:'查看文章'});   //渲染时，一定要添加模板中的参数对象 否则会出错
+    res.render('article/view.html',{title:'查看文章'});
+    //渲染时，因为在模板文件中添加了需要渲染的部分所以这里一定要添加模板中的参数对象 否则会出错
 });
 
 

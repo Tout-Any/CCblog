@@ -7,8 +7,9 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.css"/>
     <style>
-        a {
+        a,a:hover,a:active,a:focus{
             color: #000;
+            text-decoration: none;
         }
         .empty{
             height:100px;
@@ -16,7 +17,9 @@
         body{
             background-image:url("/images/bg1.jpg");
         }
-
+        .dropdown-toggle{
+            cursor:pointer;
+        }
     </style>
 </head>
 <html>
@@ -46,7 +49,7 @@
                         <%
                         }else{
                         %>
-                        <li class="active"><a href="/users/reg">注册</a></li>
+                        <li ><a href="/users/reg">注册</a></li>
                         <li><a href="/users/login">登录</a></li>
                         <%
                         }
@@ -74,7 +77,6 @@
                 </button>
                 <strong><%=success%></strong>
             </div>
-            <!--<div class="alert alert-success" role="alert"> <strong><%=success%></strong></div>-->
             <%
             }
             %>
@@ -88,9 +90,6 @@
                 </button>
                 <strong><%=error%></strong>
             </div>
-            <!--<div class="alert alert-danger" role="alert">-->
-                <!---->
-                <!--<strong><%=error%></strong></div>-->
             <%
             }
             %>
