@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.css"/>
+    <style>
+        a {
+            color: #000;
+        }
+        .empty{
+            height:100px;
+        }
+        body{
+            background-image:url("/images/bg1.jpg");
+        }
+
+    </style>
+</head>
+<html>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-1 col-xs-12" style="text-align: center">
+            <a href="/" class="bottom"><h1>CCblog</h1></a>
+        </div>
+
+        <div class="col-lg-4  col-xs-12 pull-right" style="padding-top: 22px;">
+            <ul class="nav nav-pills" role="tablist" style="width: 240px; margin: 0 auto;">
+                <li role="presentation"><a href="/">Home</a></li>
+                <li role="presentation"><a href="#">Archives</a></li>
+
+                <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        Admin<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+
+                        <!--不同状态显示不同按钮-->
+                        <%
+                        if(myuser){
+                        %>
+                        <li><a href="/article/post">发表文章</a></li>
+                        <li><a href="/users/loginout">退出登录</a></li>
+                        <%
+                        }else{
+                        %>
+                        <li class="active"><a href="/users/reg">注册</a></li>
+                        <li><a href="/users/login">登录</a></li>
+                        <%
+                        }
+                        %>
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+ <!--放置信息显示框  具体内容通过模板的形式添加显示-->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 col-xs-12 col-sm-offset-4" style="text-align: center">
+            <%
+            if(success&&success.length>0){
+            %>
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <strong><%=success%></strong>
+            </div>
+            <!--<div class="alert alert-success" role="alert"> <strong><%=success%></strong></div>-->
+            <%
+            }
+            %>
+            <%
+            if (error&&error.length>0){
+            %>
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <strong><%=error%></strong>
+            </div>
+            <!--<div class="alert alert-danger" role="alert">-->
+                <!---->
+                <!--<strong><%=error%></strong></div>-->
+            <%
+            }
+            %>
+        </div>
+
+    </div>
+
+</div>
+<div class="empty"></div>
+<!--</html>-->
+

@@ -1,0 +1,31 @@
+<%- include  commn/header.html%>
+
+
+<div class="container">
+  <h3><%= title %></h3>
+
+  <%
+  articles.forEach(function(art){
+  %>
+  <div class="col-sm-10">
+    <div class="media">
+      <a class="media-left" href="#">
+        <img src="<%= art.user.avatar%>" alt="">
+      </a>
+      <div class="media-body">
+        <h4 class="media-heading"><%=art.title%></h4>
+        <%=art.content%>
+      </div>
+    </div>
+  </div>
+  <%
+  });
+  %>
+</div>
+
+
+
+
+</body>
+
+<%- include  commn/footer.html%>
