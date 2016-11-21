@@ -1,13 +1,20 @@
+//基础模块
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
+
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+//会话支持模块
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var config=require('./dbconfig');
 var flash=require('connect-flash');
+//数据库模块
+// require('./db');
+// var settings=require('./settings');
+
 //加载路由文件  routes文件夹专门存放路由文件
 //index实际上就是index.js文件中创建的router对象
 var index = require('./routes/index');
@@ -55,10 +62,9 @@ app.use(logger('dev'));
 //设置表单格式 需要两种格式   json 和 urlencoded
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
 //加载解析cookie
 app.use(cookieParser());
-
-
 //设置静态目录
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -71,9 +77,6 @@ app.use('/users', users);
 
 //负责处理文章的路由
 app.use('/article',article);
-
-
-
 
 // catch 404 and forward to error handler
 //捕捉错误路由 生成错误对象

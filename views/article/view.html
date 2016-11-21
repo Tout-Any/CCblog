@@ -1,4 +1,48 @@
 
 <%- include  ../commn/header.html%>
-    查看文章
+<div class="container" style="padding-top: 30px">
+
+    <div class="row">
+        <!--
+            文章显示区
+        -->
+        <div class="col-lg-9 col-md-10 col-xs-12 ">
+            <%
+            articles.forEach(function(article){
+            %>
+            <!--标题-->
+            <h1><%=article.title%></h1>
+
+            <!--作者时间-->
+            <span style="color: #8c8c8c">
+                <%=article.user.username%>
+                &nbsp;&nbsp;&nbsp;
+                <%=article.create.toLocaleString()%>
+            </span>
+            <span>
+                <a href="/articles/edit/<%=article._id%>" class="btn btn-warning">编辑</a>
+                <a href="/articles/delete/<%=article._id%>" class="btn btn-danger">删除</a>
+            </span>
+            <hr>
+
+            <!--正文-->
+            <div>
+                <%=art.content%>
+            </div>
+        </div>
+        <%
+        });
+        %>
+        <!--
+            右侧边栏
+        -->
+        <div class="col-lg-3 col-md-2 col-xs-12">
+            右侧边栏
+            <br>
+            右侧边栏
+        </div>
+
+    </div>
+
+</div>
 <%- include  ../commn/footer.html%>

@@ -3,6 +3,22 @@ var models = require("../db/model");
 var router = express.Router();
 var utils= require('../utils');
 var auth=require('../middlevafy/autoauth');
+var multer=require('multer');
+var path=require('path');
+
+//图片上传
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        console.log("ccc"+file);
+        cb(null, '../public/uploads')
+    },
+    filename: function (req, file, cb) {
+        console.log("aaaa"+file);
+        cb(null, Date.now()+'.'+file.mimetype.slice(file.mimetype.indexOf('/')+1))
+    }
+})
+var upload = multer({ storage:storage});
+
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -15,9 +31,12 @@ router.get('/reg',auth.checknotLogin, function(req, res, next) {
 
 //路径与上面访问注册页面的路径是一致的,只是动作是post
 //这种设计即是RESTful设计原则
-router.post('/reg',function (req,res,next) {
+//上传头像必须要加upload.single()中间件  single指上传单个文件 其参数是表单中file input框的name属性的值
+router.post('/reg',auth.checknotLogin,upload.single('avatar'),function (req,res,next) {
     //获取表单数据
       var user = req.body;
+    console.log(user);
+    console.log('bbbbb');
       if(user.pwd === user.pwd2)
       {
           models.User.findOne({username:user.username},function (err,doc) {
@@ -27,14 +46,21 @@ router.post('/reg',function (req,res,next) {
                   res.redirect('/users/reg');
               }else
               {
-                  console.log(user);
+                  console.log(req.file);
+                  //首先查看头像是否有值
+                  if(req.file){
+                      //如果存在 则文件上传成功
+                      user.avatar = path.join('/uploads',req.file.filename);
+                  }else{
+                      user.avatar='https://s.gravatar.com/avatar/'+utils.md5(user.email)+'?s=60';
+                  }
                   //没有值才能够注册
                   models.User.create(
                       //脱库攻击
                       {username:user.username,
                           password:utils.md5(user.pwd),
                           email:user.email,
-                          avatar:'https://s.gravatar.com/avatar/'+utils.md5(user.email)+'?s=40'
+                          avatar:user.avatar
                       }, function (err,doc) {
                           if(err)
                           {
@@ -43,7 +69,7 @@ router.post('/reg',function (req,res,next) {
                           }else
                           {
                               //注册成功,重定向到登陆页面
-                              req.flash('success','注册成功，请登录');
+                              // req.flash('success','注册成功，请登录');
                               res.redirect("/users/login");
                           }
                       })
@@ -79,7 +105,7 @@ router.post('/login', function(req, res, next) {
               //转发 forword
                  // A-->b-->c   从A直接跳转到c  只有一次请求   网址在b页面的地址
               //放入成功的消息
-              req.flash('success','登录成功');   //两个参数代表放入信息  一个参数代表取出信息
+              // req.flash('success');   //两个参数代表放入信息  一个参数代表取出信息
               res.redirect("/");
           }else
           {
