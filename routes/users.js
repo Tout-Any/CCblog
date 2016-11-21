@@ -19,7 +19,6 @@ var storage = multer.diskStorage({
 })
 var upload = multer({ storage:storage});
 
-
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');

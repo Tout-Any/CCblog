@@ -55,7 +55,6 @@ app.use(function (req,res,next) {
   res.locals.error=req.flash('error');   //取信息
   next();
 })
-
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));

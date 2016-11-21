@@ -14,6 +14,5 @@ router.get('/', function(req, res, next) {
     // res.render('index', { title: 'CCblog',tit:'最新文章',articles:articles,createTime:'createTime' });
     res.redirect('/article/list/1/2');
   });
-
 });
 module.exports = router;
