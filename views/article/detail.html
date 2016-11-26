@@ -1,7 +1,6 @@
-
 <%- include  ../commn/header.html%>
 
-<div class="col-xs-6 col-sm-7">
+<div class="col-xs-8 col-sm-10">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title"><%=article.title%></h4>
@@ -17,8 +16,8 @@
         %>
           <!--删除和编辑要判断当前登陆的用户是不是文章的作者-->
             <div class="panel-footer">
-              <a href="/articles/edit/<%=article._id%>" class="btn btn-warning">编辑</a>
-             <a href="/articles/delete/<%=article._id%>" class="btn btn-danger">删除</a>
+              <a href="/article/edit/<%=article._id%>" class="btn btn-warning">编辑</a>
+             <a href="/article/delete/<%=article._id%>" class="btn btn-danger">删除</a>
             </div>
 
             <%
@@ -27,7 +26,4 @@
     </div>
 
 </div>
-
-
-
 <%- include  ../commn/footer.html%>

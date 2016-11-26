@@ -10,7 +10,7 @@ var path=require('path');
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         console.log("ccc"+file);
-        cb(null, '../public/uploads')
+        cb(null, 'E:\\myblog\\myblog\\public\\uploads')
     },
     filename: function (req, file, cb) {
         console.log("aaaa"+file);
