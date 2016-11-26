@@ -22,9 +22,10 @@ mongoose.connect(dbconfig.dburl);
         //user属性是userinfo表的用户id 所以类型应该是ObjectId 为了表现之间关系要使用ref属性
         user:{type:ObjectId,ref:'userinfo'},
         content:String,
-        createTime:{type:Date,default: Date.now}//.format('yyyy-MM-dd hh:mm:ss')
-   });
-
+        comments: [{user:{type:ObjectId,ref:'userinfo'},content:String,createTime:{type: Date, default: Date.now}}],//评论
+        createTime:{type:Date,default: Date.now},//.format('yyyy-MM-dd hh:mm:ss')
+        pv: {type:Number,default:0}
+    });
  exports.User = mongoose.model('userinfo',userSchema);
  exports.Article = mongoose.model('article',articleSchema);
 

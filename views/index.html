@@ -21,6 +21,8 @@
       <p  class="date">
         <span style="display:block;margin-top:5px;margin-buttom:5px;"><%=art.user.username%></span> <br>
        <%=art.createTime.toLocaleString()%></p>
+      阅读：<%= art.pv %>|
+      评论：<%= art.comments.length%>
     </div>
     <%
     });
@@ -92,7 +94,7 @@
     </div>
   </div>
 </div>
-</div>
+
 
 
 </body>

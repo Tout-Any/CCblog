@@ -8,8 +8,7 @@ var router = express.Router();
 var utils= require('../utils');
 var auth=require('../middlevafy/autoauth');
 var markdown=require('markdown').markdown;
-// var bodyParser = require('body-parser');
-// var multer=require('multer');
+var async = require('async');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -38,6 +37,8 @@ router.post('/post',auth.checkLogin,function(req, res, next) {
         }
     });
 });
+
+
 //文章编辑的路由
 router.get('/edit/:_id', function (req, res) {
     models.Article.findById({_id:req.params._id},function(err,art){
@@ -71,18 +72,52 @@ router.post('/add',auth.checkLogin,function(req, res, next) {
         });
     }
 });
-//更新文章
-// router.
 
 //查看文章详情页
-router.get('/detail/:id', function (req, res) {
-    models.Article.findById(req.params.id).populate('user').exec(function(err,art){
-        art.content = markdown.toHTML(art.content);
-        console.log(req.params.id);
-        console.log("art="+art);
-        res.render('article/detail',{title:'文章详情',article:art});
+router.get('/detail/:_id', function (req, res) {
+    // models.Article.findById(req.params.id).populate('user').exec(function(err,art){
+    //     art.content = markdown.toHTML(art.content);
+    //     console.log(req.params.id);
+    //     console.log("art="+art);
+    //     res.render('article/detail',{title:'文章详情',article:art});
+    // });
+    async.parallel([function(callback){
+        models.Article.findOne({_id:req.params._id}).populate('user').populate('comments.user').exec(function(err,article){
+            // article.content = markdown.toHTML(article.content);
+            callback(err,article);
+        });
+    },function(callback){
+       models.Article.update({_id:req.params._id},{$inc:{pv:1}},callback);
+    }],function(err,result){
+        if(err){
+            req.flash('error',err);
+            res.redirect('back');
+        }
+        res.render('article/detail',{title:'查看文章',article:result[0]});
     });
 });
+// 文章评论
+router.post('/comment',auth.checkLogin, function (req, res) {
+    var user = req.session.user;
+    console.log("user----------------------------------= "+user);
+    models.Article
+        .update(
+            {_id:req.body._id},
+            {$push:
+            {comments:
+            {user:user._id,content:req.body.content}
+            }
+            },
+            function(err,result){
+        if(err){
+            req.flash('error',err);
+            return res.redirect('back');
+        }
+        req.flash('success', '评论成功!');
+        res.redirect('back');
+    });
+});
+
 
 //删除文章
 router.get('/delete/:_id', function (req, res) {

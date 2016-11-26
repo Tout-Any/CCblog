@@ -6,8 +6,8 @@
             <h4 class="panel-title"><%=article.title%></h4>
             <%=article.user.username%>&nbsp;&nbsp;&nbsp;<%=article.createTime.toLocaleString()%>
         </div>
-        <div class="panel-body">
-            <%-article.content%>
+        <div class="panel-body" id="detail_content">
+           <%-article.content%>
         </div>
         <!--判断是不是文章的作者-->
         <%
@@ -19,10 +19,46 @@
               <a href="/article/edit/<%=article._id%>" class="btn btn-warning">编辑</a>
              <a href="/article/delete/<%=article._id%>" class="btn btn-danger">删除</a>
             </div>
-
             <%
              }
            %>
+    </div>
+
+    <!-- 添加评论区域-->
+    <div class="panel panel-default" >
+        <div class="panel-heading">
+            评论列表
+        </div>
+        <div class="panel-body"  style="height:300px;overflow-y: scroll">
+            <ul class="media-list">
+                <%
+                article.comments.forEach(function(comment){
+                %>
+                <li class="media">
+                    <div class="media-left fl">
+                        <img class="media-object fl" src="<%= comment.user.avatar%>" alt="" width="60px" height="60px" >
+                        &nbsp;&nbsp;<p class="media-left fr"><%-comment.content%></p>
+                    </div>
+                    <div class="fr media-bottom" >
+                        <%=comment.user.username%> <br><%=comment.createTime.toLocaleString()%>
+                    </div>
+                </li>
+                <%
+                });
+                %>
+            </ul>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <form action="/article/comment" method="post">
+            <input type="hidden" value="<%=article._id%>" name="_id"/>
+            <div class="panel-body">
+                <textarea class="form-control"   id="" cols="30" rows="10" id="content" name="content" placeholder="请输入评论" ></textarea>
+            </div>
+            <div class="panel-footer ">
+                <button type="submit" class="btn btn-default">提交</button>
+            </div>
+        </form>
     </div>
 
 </div>

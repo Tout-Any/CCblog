@@ -2,7 +2,7 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-
+var fs=require('fs');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -78,12 +78,9 @@ app.use('/users', users);
 app.use('/article',article);
 
 // catch 404 and forward to error handler
-//捕捉错误路由 生成错误对象
+//404 页面
 app.use(function(req, res, next) {
-  var err = new Error('页面找不到');
-  err.status = 404;
-  //转到下一个中间件 做错误页面的渲染
-  next(err);
+  res.render("404",{title:'页面不存在'});
 });
 
 // error handler 错误页面的渲染
@@ -97,6 +94,17 @@ app.use(function(err, req, res, next) {
   //渲染错误页面
   res.render('error');
 });
+//日志
+// 正常日志
+var accessLog = fs.createWriteStream('access.log', {flags: 'a'});
+app.use(logger('dev',{stream: accessLog}));
 
+// 错误日志
+var errorLog = fs.createWriteStream('error.log', {flags: 'a'});
+app.use(function (err, req, res, next) {
+  var meta = '[' + new Date() + '] ' + req.url + '\n';
+  errorLog.write(meta + err.stack + '\n');
+  next();
+});
 //把app暴露给外界
 module.exports = app;
