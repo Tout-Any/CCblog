@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
     //   art.content = markdown.toHTML(art.content);
     // });
     // res.render('index', { title: 'CCblog',tit:'最新文章',articles:articles,createTime:'createTime' });
-    res.redirect('/article/list/1/2');
+    res.redirect('/article/list/1/5');
   });
 });
 module.exports = router;

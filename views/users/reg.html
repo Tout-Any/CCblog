@@ -6,25 +6,25 @@
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-4 control-label">用户名</label>
     <div class="col-sm-4">
-      <input type="text" class="form-control" name="username" id="inputEmail3" placeholder="用户名">
+      <input type="text" class="form-control" name="username" id="inputEmail3" placeholder="4-12个非空字符" required pattern="[\w]{4,12}" minlength="4" maxlength="12">
     </div>
   </div>
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-4 control-label">密码</label>
     <div class="col-sm-4">
-      <input type="password" class="form-control" id="inputPassword3" name="pwd" placeholder="Password">
+      <input type="password" class="form-control" id="inputPassword3" name="pwd"  placeholder="6-20个非空字符" required pattern="[\w]{6,20}" minlength="6" maxlength="20">
     </div>
   </div>
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-4 control-label">确认密码</label>
     <div class="col-sm-4">
-      <input type="password" class="form-control" id="inputPassword4"  name="pwd2"placeholder="Password">
+      <input type="password" class="form-control" id="inputPassword4"  name="pwd2" placeholder="请输入确认密码">
     </div>
   </div>
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-4 control-label">email</label>
     <div class="col-sm-4">
-      <input type="email" class="form-control" id="inputEmail5" name="email" placeholder="邮箱">
+      <input type="email" class="form-control" id="inputEmail5" name="email" placeholder="邮箱" pattern="^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$">
     </div>
   </div>
   <div class="form-group ">

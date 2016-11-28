@@ -1,101 +1,111 @@
 <%- include  commn/header.html%>
 
 <div class="container">
-  <div class="col-xs-10 col-sm-9">
-    <h3><%=tit %></h3>
-    <%
-    articles.forEach(function(art){
-    %>
-    <div class="col-xs-9 col-sm-7" id='art' style="height:auto;margin-top:30px;">
-      <div class="media" id="cont">
-        <a class="media-left" href="#">
-          <img src="<%= art.user.avatar%>" width="60px" height="60px" alt="">
-        </a>
-        <div class="media-body" id="title">
-          <h4 class="media-heading"><a href="/article/detail/<%=art._id%>"><%=art.title%></a></h4>
-          <div id="p"><%-art.content%></div>
+  <div class="row box" >
+    <div class="col-xs-12 col-sm-9 ">
+      <h3><%=tit %></h3>
+      <%
+      articles.forEach(function(art){
+      %>
+      <div class="col-xs-12 col-sm-12 box" style="height:auto;margin-top:10px;">
+        <div class="media">
+          <a class="media-left" href="">
+            <img src="<%= art.user.avatar%>" width="60px" height="60px" alt="">
+          </a>
+          <div class="media-body" id="title">
+            <h4 class="media-heading"><a href="/article/detail/<%=art._id%>"><%=art.title%></a></h4>
+            <div><%-art.content%></div>
+            阅读：<%= art.pv %>|
+            评论：<%= art.comments.length%>
+          </div>
+          <p class="fr">
+            <span><%=art.user.username%></span>
+            <%=art.createTime.toLocaleString()%>
+          </p>
         </div>
       </div>
-    </div>
-    <div class="col-xs-3 col-sm-offset-1 col-sm-4" style="height:150px;margin-top:30px;">
-      <p  class="date">
-        <span style="display:block;margin-top:5px;margin-buttom:5px;"><%=art.user.username%></span> <br>
-       <%=art.createTime.toLocaleString()%></p>
-      阅读：<%= art.pv %>|
-      评论：<%= art.comments.length%>
-    </div>
-    <%
-    });
-    %>
-    <nav class="col-sm-offset-0">
-      <ul class="pagination">
-        <%
-        <!--如果是第一页就禁用向左-->
-        if(pageNum==1){
-        %>
-        <li class="disabled"><span>&laquo;</span></li>
-        <%
-        }else{
-        %>
-        <li><a href="/article/list/<%=(pageNum-1)%>/<%=pageSize%>">&laquo;</a></li>
-        <%
-        }
-        %>
-        <%
-        <!--jade 求出一共有多少页-->
-        var total =  Math.ceil(count/pageSize);
-        for(var i=1;i<=total;i++)
-        {
-        if(i==pageNum){
-        %>
-        <li  class="active"><a href="/article/list/<%=i%>/<%=pageSize%>"  ><%=i%></a></li>
-        <%
-        }else{
-        %>
-        <li><a href="/article/list/<%=i%>/<%=pageSize%>"  ><%=i%></a></li>
-        <%
-        }
-        }
-        %>
-        <%
-        if(pageNum==total){
-        <!--如果是最后一页就禁用向右-->
-        %>
-          <li class="disabled"><span>&raquo;</span></li>
-        <%
-        }else
-        {
-        %>
-       <li><a href="/article/list/<%=(pageNum+1)%>/<%=pageSize%>">&raquo;</a></li>
-        <%
-        }
-        %>
-      </ul>
-    </nav>
-  </div>
-  <div class="col-xs-6 col-sm-3" id="index_right">
-    <div class="row index_rl">
-      <h4>文章搜索</h4>
-      <form action="/article/list/1/2" method="get" role="search" class="navbar-form navbar-left">
-        <div class="form-group">
-          <input type="text" class="form-control" name="keyword" value="" placeholder="Search">
-        </div>
-        <input type="submit" class="btn btn-default" name="searchBtn" value="搜索" id="index_btn1">
-      </form>
+      <%
+      });
+      %>
+      <nav class="col-xs-12 col-sm-offset-9">
+          <ul class="pagination">
+            <%
+            <!--如果是第一页就禁用向左-->
+            if(pageNum==1){
+            %>
+            <li class="disabled"><span>&laquo;</span></li>
+            <%
+            }else{
+            %>
+            <li><a href="/article/list/<%=(pageNum-1)%>/<%=pageSize%>">&laquo;</a></li>
+            <%
+            }
+            %>
+            <%
+            <!--jade 求出一共有多少页-->
+            var total =  Math.ceil(count/pageSize);
+            for(var i=1;i<=total;i++)
+            {
+            if(i==pageNum){
+            %>
+            <li  class="active"><a href="/article/list/<%=i%>/<%=pageSize%>"  ><%=i%></a></li>
+            <%
+            }else{
+            %>
+            <li><a href="/article/list/<%=i%>/<%=pageSize%>"  ><%=i%></a></li>
+            <%
+            }
+            }
+            %>
+            <%
+            if(pageNum==total){
+            <!--如果是最后一页就禁用向右-->
+            %>
+            <li class="disabled"><span>&raquo;</span></li>
+            <%
+            }else
+            {
+            %>
+            <li><a href="/article/list/<%=(pageNum+1)%>/<%=pageSize%>">&raquo;</a></li>
+            <%
+            }
+            %>
+          </ul>
+        </nav>
     </div>
 
-    <div class="row index_rl">
-      <h4>相关链接</h4>
-      <div class="connect">
-        <a class="bl" href="http://www.w3school.com.cn/">w3cshool在线教程</a>
-        <a class="bl" href=http://www.qdfuns.com/">前端网（w3Cfuns)</a>
-        <a class="bl" href=http://http://www.bootcss.com//">Bootstrap中文网</a>
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 rel">
+        <h3>相关知识:</h3>
+        <ul style="line-height: 30px;">
+          <li><a href="http://blog.csdn.net/qq_25827845/article/details/53079094" target="_blank">2016最新前端学习计划</a></li>
+          <li><a href="http://blog.csdn.net/u013067927/article/details/53138888" target="_blank">前端开发知识</a></li>
+          <li><a href="http://blog.csdn.net/apple_wheat/article/details/53224427" target="_blank">JavaScript排序算法</a></li>
+          <li><a href="http://www.nowamagic.net/librarys/books/contents/jquery" target="_blank">简单易懂的JQuery魔法</a></li>
+          <li><a href="http://www.oschina.net/translate/learning-javascript-design-patterns" target="_blank">学用 JS设计模式</a></li>
+          <li><a href="http://blog.csdn.net/nupotian/article/details/53227380" target="_blank">JS中的面向对象编程</a></li>
+          <li><a href="http://www.liaoxuefeng.com" target="_blank">Git教程</a></li>
+          <li><a href="http://blog.csdn.net/liqi_q/article/details/53227330" target="_blank">js跨域解决数据共享问题</a></li>
+        </ul>
       </div>
-    </div>
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 pull-right rel"  >
+        <h3>相关链接：</h3>
+        <ul style="line-height: 30px;">
+          <li><a href="bootcss.com" target="_blank">bootstrap中文网</a></li>
+          <li><a href="http://tool.oschina.net/regex/" target="_blank">在线正则表达式测试</a></li>
+          <li><a href="http://www.bejson.com/" target="_blank">在线json校验格式化工具</a></li>
+          <li><a href="http://learngitbranching.js.org/" target="_blank"> Learn Git Branching</a></li>
+          <li><a href="http://lbsyun.baidu.com/" target="_blank">百度地图开放平台</a></li>
+          <li><a href="http://isux.tencent.com/h5-performance.html" target="_blank">移动H5前端性能优化指南</a></li>
+          <li><a href="hhttp://www.kancloud.cn/#one" target="_blank">看云</a></li>
+          <li><a href="https://npm.taobao.org/" target="_blank">淘宝 NPM 镜像</a></li>
+        </ul>
+      </div>
+
+
   </div>
+
+
 </div>
-
-
 
 </body>
 

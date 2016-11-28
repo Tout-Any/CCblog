@@ -35,7 +35,6 @@ router.post('/reg',auth.checknotLogin,upload.single('avatar'),function (req,res,
     //获取表单数据
       var user = req.body;
     console.log(user);
-    console.log('bbbbb');
       if(user.pwd === user.pwd2)
       {
           models.User.findOne({username:user.username},function (err,doc) {

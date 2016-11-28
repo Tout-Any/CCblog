@@ -10,11 +10,18 @@
 <html>
 <div class="container">
     <div class="row">
-        <div class="col-lg-1 col-xs-12" style="text-align: center">
+        <div class="col-lg-2 col-xs-12  col-md-3 col-sm-3" style="text-align: center;">
             <a href="/" class="bottom"><h1>CCblog</h1></a>
         </div>
-
-        <div class="col-lg-4  col-xs-12 pull-right" style="padding-top: 22px;">
+        <div class=" col-lg-4 col-xs-12 col-md-5 col-sm-6 col-lg-offset-2" style="text-align:center;margin-top:18px;">
+            <form action="/article/list/1/5" method="get" role="search" class="navbar-form navbar-left">
+                <div class="form-group col-lg-9 col-md-9 col-sm-9 col-xs-10">
+                    <input type="text" class="form-control" name="keyword" value="" placeholder="Search">
+                </div>
+                <input type="submit" class="btn btn-default col-lg-3 col-md-3 col-sm-3 col-xs-2 " name="searchBtn" value="搜索" id="index_btn1">
+            </form>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12 pull-right" style="padding-top: 22px;">
             <ul class="nav nav-pills" role="tablist" style="width: 240px; margin: 0 auto;">
 
                 <li role="presentation"><a href="/">Home</a></li>
@@ -41,10 +48,11 @@
                     </ul>
                 </li>
             </ul>
+
         </div>
+
     </div>
 </div>
-
 
  <!--放置信息显示框  具体内容通过模板的形式添加显示-->
 <div class="container">

@@ -13,7 +13,7 @@ var async = require('async');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
     res.send('欢迎来到首页');
-    // res.redirect('/article/list/1/2');
+    // res.redirect('/article/list/1/5');
 });
 // 发布文章  http://127.0.0.1:3000/article/add
 router.get('/post',auth.checkLogin,function(req, res, next) {
@@ -30,7 +30,6 @@ router.post('/post',auth.checkLogin,function(req, res, next) {
         if(err){
             req.flash('error','发表失败，请稍后再试');
             res.redirect('/article/post');
-
         }else{
             console.log(req.body);
             res.redirect('/');
@@ -38,15 +37,14 @@ router.post('/post',auth.checkLogin,function(req, res, next) {
     });
 });
 
-
 //文章编辑的路由
 router.get('/edit/:_id', function (req, res) {
     models.Article.findById({_id:req.params._id},function(err,art){
-        art.content =markdown.toHTML(art.content);
         res.render('article/add',{title:'编辑文章',article:art });
     });
 });
 router.post('/add',auth.checkLogin,function(req, res, next) {
+        // var article=req.body;
         var _id = req.body._id;
         console.log(_id+'***************');
     if(_id){
@@ -131,12 +129,12 @@ router.get('/delete/:_id', function (req, res) {
     });
 });
 
-//搜索  get /article/list/3/2   第三页 每一页有两条数据   没有搜索关键字
-//搜索  post /article/list/3/2   第三页 每一页有两条数据   有搜索关键字
+//搜索  get /article/list/3/5   第三页 每一页有两条数据   没有搜索关键字
+//搜索  post /article/list/3/5   第三页 每一页有两条数据   有搜索关键字
 router.all('/list/:pageNum/:pageSize',function (req,res,next) {
     var searchBtn=req.query.searchBtn;
     var pageNum=req.params.pageNum&&req.params.pageNum>0?parseInt(req.params.pageNum):1;
-    var pageSize=req.params.pageSize&&req.params.pageSize>0?parseInt(req.params.pageSize):2;
+    var pageSize=req.params.pageSize&&req.params.pageSize>0?parseInt(req.params.pageSize):5;
     var query={};
     var keyword=req.query.keyword;
     if(searchBtn){
